@@ -10,6 +10,18 @@ let days = [
 ];
 let weekday = days[now.getDay()];
 let time = now.toLocaleTimeString();
+let icon = document.getElementById("weather-icon");
+const weatherIcons = {
+  "clear sky": "☀️",
+  "few clouds": "🌥️",
+  "scattered clouds": "🌥️",
+  "broken clouds": "🌥️",
+  "shower rain": "🌧️",
+  rain: "🌧️",
+  thunderstorm: "🌩️",
+  snow: "🌨️",
+  mist: "🌨️",
+};
 
 function showCurrentDay() {
   let element = document.querySelector("#current-date");
@@ -30,6 +42,21 @@ function getWeatherData(event) {
 function showWeather(response) {
   let currentTemp = document.querySelector("#current-temp");
   currentTemp.innerHTML = `${response.data.main.temp}C`;
+  let currentClouds = document.querySelector("#current-clouds");
+  currentClouds.innerHTML = `Clouds: ${response.data.clouds.all}%`;
+  let currentWind = document.querySelector("#current-wind");
+  currentWind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
+  let currentDesc = document.querySelector("#current-description");
+  currentDesc.innerHTML = `${response.data.weather[0].description}`;
+
+  Object.keys(weatherIcons).forEach((key) => {
+    console.log(response.data.weather[0].description);
+    if (response.data.weather[0].description === key) {
+      console.log(key, weatherIcons[key], "test", icon);
+      icon.innerHTML = weatherIcons[key];
+    }
+  });
+  console.log(response);
 }
 
 showCurrentDay();

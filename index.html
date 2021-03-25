@@ -12,77 +12,80 @@
     />
     <link rel="stylesheet" href="src/styles.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>Ashley Hynes - She Codes Plus Week 5 - Final Project</title>
+    <title>Ashley Hynes - She Codes Plus Week 6 - Final Project</title>
   </head>
   <body>
     <div class="container card text-white bg-dark mt-5">
       <div class="row p-4">
-        <div class="col-sm">
-          City Name
-        </div>
-        <div class="col-sm">
-          City Name
-        </div>
-        <div class="col-sm">
-          City Name
-        </div>
-        <div class="col-sm">
-          City Name
-        </div>
+        <div class="col-sm">City Name</div>
+        <div class="col-sm">City Name</div>
+        <div class="col-sm">City Name</div>
+        <div class="col-sm">City Name</div>
       </div>
       <div class="row px-4 py-1">
         <div class="col">
           <form id="search-form" class="form-inline">
-            <input type="text" class="p-1" id="city-name" placeholder="Enter a city name" />
-            <button id="city-name-search" class="btn btn-outline-light m-4">Search</button>
+            <input
+              type="text"
+              class="p-1"
+              id="city-name"
+              placeholder="Enter a city name"
+            />
+            <button id="city-name-search" class="btn btn-outline-light m-4">
+              Search
+            </button>
             <button class="btn btn-outline-light">Current</button>
           </form>
         </div>
       </div>
       <div class="row p-4">
-          <div class="col-sm">
-            <h1 id="current-city"></h1>
-            <h4 id="current-date"></h4>
-            <h4>Clouds</h4>
-          </div>
-          <div class="col-sm">
-              <h5>Precipitation: 88%</h5> 
-              <h5>Wind: 10km/h</h5>
-               </div>
+        <div class="col-sm">
+          <h1 id="current-city"></h1>
+          <h4 id="current-date"></h4>
+          <h4 id="current-description"></h4>
+        </div>
+        <div class="col-sm">
+          <h5 id="current-clouds">Clouds:</h5>
+          <h5 id="current-wind">Wind:</h5>
+        </div>
       </div>
       <div class="row px-4 py-1">
-          <div class="col-sm">
-              <h1 id="current-temp"></h1>
-          </div>
+        <div class="col-sm">
+          <h1 id="current-temp"><span id="weather-icon"></span></h1>
         </div>
-        <div class="row p-4">
-            <div class="col-sm">
-SAT<br />
-⛅<br />
-11c
-            </div>
-            <div class="col-sm">
-                SUN<br />
-                ☁️<br />
-                11c
-                                  </div>
-                                  <div class="col-sm">
-                                      MON<br />
-                                      ☀️<br />
-                                      11c
-                                                        </div>
-                                                        <div class="col-sm">
-                                                            TUES<br />
-                                                            ⛈️<br />
-                                                            11c
-                                                                              </div>
-                                                                              <div class="col-sm">
-                                                                                  WED<br />
-                                                                                  ⛈️<br />
-                                                                                  11c
-                                       
+      </div>
+      <div class="row p-4">
+        <div class="col-sm">
+          SAT<br />
+          ⛅<br />
+          11c
+        </div>
+        <div class="col-sm">
+          SUN<br />
+          ☁️<br />
+          11c
+        </div>
+        <div class="col-sm">
+          MON<br />
+          ☀️<br />
+          11c
+        </div>
+        <div class="col-sm">
+          TUES<br />
+          ⛈️<br />
+          11c
+        </div>
+        <div class="col-sm">
+          WED<br />
+          ⛈️<br />
+          11c
+        </div>
+      </div>
     </div>
-    <div id="bottom-link">View Project on <a href="https://github.com/splashley/weather-app">Github</a></div>
+    <div id="bottom-link">
+      View Project on
+      <a href="https://github.com/splashley/weather-app">Github</a>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
