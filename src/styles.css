@@ -6,3 +6,7 @@ body {
     text-decoration: none;
     padding-top: 30px;
 }
+
+#weather-icon {
+  font-size: 1rem;
+}

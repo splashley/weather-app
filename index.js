@@ -17,11 +17,14 @@ const weatherIcons = {
   "scattered clouds": "🌥️",
   "broken clouds": "🌥️",
   "shower rain": "🌧️",
+  "overcast clouds": "☁️",
   rain: "🌧️",
   thunderstorm: "🌩️",
   snow: "🌨️",
   mist: "🌨️",
 };
+let button = document.querySelector("#search-form");
+let switchMetricButton = document.querySelector("#metric-switch");
 
 function showCurrentDay() {
   let element = document.querySelector("#current-date");
@@ -41,7 +44,7 @@ function getWeatherData(event) {
 
 function showWeather(response) {
   let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = `${response.data.main.temp}C`;
+  currentTemp.innerHTML = Math.floor(`${response.data.main.temp}`);
   let currentClouds = document.querySelector("#current-clouds");
   currentClouds.innerHTML = `Clouds: ${response.data.clouds.all}%`;
   let currentWind = document.querySelector("#current-wind");
@@ -49,16 +52,29 @@ function showWeather(response) {
   let currentDesc = document.querySelector("#current-description");
   currentDesc.innerHTML = `${response.data.weather[0].description}`;
 
-  Object.keys(weatherIcons).forEach((key) => {
-    console.log(response.data.weather[0].description);
+  for (const [key, value] of Object.entries(weatherIcons)) {
     if (response.data.weather[0].description === key) {
       console.log(key, weatherIcons[key], "test", icon);
-      icon.innerHTML = weatherIcons[key];
+      icon.innerHTML = value;
     }
-  });
-  console.log(response);
+  }
+}
+
+function temperatureConverter() {
+  if (switchMetricButton.innerHTML === "F") {
+    let currentTemp = document.querySelector("#current-temp");
+    let temperature = parseFloat(currentTemp.innerText);
+    currentTemp.innerHTML = Math.floor(temperature * 1.8 + 32);
+    switchMetricButton.innerHTML = "C";
+  } else {
+    let currentTemp = document.querySelector("#current-temp");
+    let temperature = parseFloat(currentTemp.innerText);
+    currentTemp.innerHTML = Math.floor((temperature - 32) / 1.8);
+    switchMetricButton.innerHTML = "F";
+  }
 }
 
 showCurrentDay();
-let button = document.querySelector("#search-form");
+
 button.addEventListener("submit", getWeatherData);
+switchMetricButton.addEventListener("click", temperatureConverter);
