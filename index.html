@@ -16,12 +16,6 @@
   </head>
   <body>
     <div class="container card text-white bg-dark mt-5">
-      <div class="row p-4">
-        <div class="col-sm">City Name</div>
-        <div class="col-sm">City Name</div>
-        <div class="col-sm">City Name</div>
-        <div class="col-sm">City Name</div>
-      </div>
       <div class="row px-4 py-1">
         <div class="col">
           <form id="search-form" class="form-inline">
@@ -34,7 +28,7 @@
             <button id="city-name-search" class="btn btn-outline-light m-4">
               Search
             </button>
-            <!-- <button class="btn btn-outline-light">Current</button> -->
+            <button class="btn btn-outline-light" id="current-button">Current</button>
           </form>
         </div>
       </div>
@@ -53,10 +47,10 @@
         <div class="col-sm d-inline-flex">
           <span id="weather-icon"></span>
           <h1 id="current-temp"></h1>
-          <button id="metric-switch">F</button>
+          <button id="metric-switch" class="btn btn-light mx-3">F</button>
         </div>
       </div>
-      <div class="row p-4">
+      <div class="row p-4" id="forecast">
         <div class="col-sm">
           SAT<br />
           ⛅<br />
@@ -83,10 +77,9 @@
           11c
         </div>
       </div>
+          <div id="bottom-link">
+      View Project on <a href="https://github.com/splashley/weather-app">Github</a>
     </div>
-    <div id="bottom-link">
-      View Project on
-      <a href="https://github.com/splashley/weather-app">Github</a>
     </div>
     <script src="index.js"></script>
   </body>
