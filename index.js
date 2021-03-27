@@ -25,6 +25,7 @@ const weatherIcons = {
 };
 let button = document.querySelector("#search-form");
 let switchMetricButton = document.querySelector("#metric-switch");
+let currentTemperatureInCelsius = "";
 
 function showCurrentDay() {
   let element = document.querySelector("#current-date");
@@ -33,22 +34,23 @@ function showCurrentDay() {
 
 function getWeatherData(event) {
   event.preventDefault();
-  let newCityname = document.querySelector("#city-name");
+  let newCityName = document.querySelector("#city-name");
   let cityName = document.querySelector("#current-city");
-  cityName.innerHTML = newCityname.value;
+  cityName.innerHTML = newCityName.value;
   let apiKey = "b48e954a5eed9632982ee8987daab198";
   let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${newCityname}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${newCityName.value}&appid=${apiKey}&units=${units}`;
   axios(apiUrl).then(showWeather);
-  // apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${newCityname}&appid=${apiKey}&units=${units}`;
+  // apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${newCityName.value}&appid=${apiKey}&units=${units}`;
   // axios.get(apiUrl).then(displayForecast);
   // console.log("this is the getweatherdata function");
 }
 
 // Display weather on the page after pressing the Search button
 function showWeather(response) {
+  currentTemperatureInCelsius = response.data.main.temp;
   let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = Math.floor(`${response.data.main.temp}`) + "C";
+  currentTemp.innerHTML = Math.floor(currentTemperatureInCelsius) + "C";
   let currentClouds = document.querySelector("#current-clouds");
   currentClouds.innerHTML = `Clouds: ${response.data.clouds.all}%`;
   let currentWind = document.querySelector("#current-wind");
@@ -69,13 +71,12 @@ function showWeather(response) {
 function temperatureConverter() {
   if (switchMetricButton.innerHTML === "F") {
     let currentTemp = document.querySelector("#current-temp");
-    let temperature = parseFloat(currentTemp.innerText);
-    currentTemp.innerHTML = Math.floor(temperature * 1.8 + 32) + "F";
+    currentTemp.innerHTML =
+      Math.floor(currentTemperatureInCelsius * 1.8 + 32) + "F";
     switchMetricButton.innerHTML = "C";
   } else {
     let currentTemp = document.querySelector("#current-temp");
-    let temperature = parseFloat(currentTemp.innerText);
-    currentTemp.innerHTML = Math.floor((temperature - 32) / 1.8) + "C";
+    currentTemp.innerHTML = Math.floor(currentTemperatureInCelsius) + "C";
     switchMetricButton.innerHTML = "F";
   }
 }
@@ -91,9 +92,12 @@ function showPosition(position) {
 }
 
 // Get current position and send the position coords to getWeatherData.
-function getCurrentPosition(event, showPosition) {
+function getCurrentPosition(event) {
   event.preventDefault();
-  navigator.geolocation.showPosition(getWeatherData(event));
+  console.log(navigator.geolocation);
+  navigator.geolocation.getCurrentPosition((position) => {
+    showPosition(position);
+  });
 }
 navigator.geolocation.getCurrentPosition(showPosition);
 
