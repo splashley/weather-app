@@ -25,6 +25,8 @@ const weatherIcons = {
 let button = document.querySelector("#search-form");
 let switchMetricButton = document.querySelector("#metric-switch");
 let currentTemperatureInCelsius = "";
+let currentForecastMaxTemp = "";
+let currentForecastMinTemp = "";
 let currentButton = document.querySelector("#current-button");
 
 // Show current day/time
@@ -107,13 +109,14 @@ function displayForecast(response) {
   let forecast = null;
   for (let i = 0; i < 5; i++) {
     forecast = response.data.list[i];
+    currentForecastMaxTemp = forecast.main.temp_max;
     forecastElement.innerHTML += `<div class="col-sm">
                   <strong> <span class="max-temp">${Math.floor(
                     forecast.main.temp_max
-                  )}</span>º |</strong>
+                  )}</span><span class="forecast-temperature">ºC</span> |</strong>
                   <span class="min-temp">${Math.floor(
                     forecast.main.temp_min
-                  )}</span>º
+                  )}</span><span class="forecast-temperature">ºC</span>
             </div>`;
   }
 }
@@ -133,6 +136,14 @@ function getWeatherData(event) {
   console.log("this is the getweatherdata function");
 }
 
+// +(
+//   <strong>
+//     {" "}
+//     <span class="max-temp">${Math.floor(forecast.main.temp_max)}</span>º
+//     <span class="forecast-temperature">C</span> |
+//   </strong>
+// );
+
 // Convert temperatures from Celcius to Fahrenheit and vice versa
 function temperatureConverter() {
   if (switchMetricButton.innerHTML === "F") {
@@ -140,6 +151,14 @@ function temperatureConverter() {
     currentTemp.innerHTML =
       Math.floor(currentTemperatureInCelsius * 1.8 + 32) + "º" + "F";
     switchMetricButton.innerHTML = "C";
+
+    let forecastMaxTemp = document.getElementsByClassName("max-temp");
+    forecastMaxTemp.innerHTML = Math.floor(currentForecastMaxTemp * 1.8 + 32);
+    let forecastMaxTempSymbol = document.getElementsByClassName(
+      "forecast-temperature"
+    );
+    forecastMaxTempSymbol.innerHTML = "º" + "F";
+    // currentForecastMinTemp
   } else {
     let currentTemp = document.querySelector("#current-temp");
     currentTemp.innerHTML = Math.floor(currentTemperatureInCelsius) + "º" + "C";
