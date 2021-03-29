@@ -25,8 +25,6 @@ const weatherIcons = {
 let button = document.querySelector("#search-form");
 let switchMetricButton = document.querySelector("#metric-switch");
 let currentTemperatureInCelsius = "";
-let currentForecastMaxTemp = "";
-let currentForecastMinTemp = "";
 let currentButton = document.querySelector("#current-button");
 
 // Show current day/time
@@ -36,7 +34,6 @@ function checkTime(i) {
   }
   return i;
 }
-
 function showCurrentTime() {
   let today = new Date();
   let h = today.getHours();
@@ -109,7 +106,6 @@ function displayForecast(response) {
   let forecast = null;
   for (let i = 0; i < 5; i++) {
     forecast = response.data.list[i];
-    currentForecastMaxTemp = forecast.main.temp_max;
     forecastElement.innerHTML += `<div class="col-sm">
                   <strong> <span class="max-temp">${Math.floor(
                     forecast.main.temp_max
@@ -153,7 +149,8 @@ function temperatureConverter() {
     switchMetricButton.innerHTML = "C";
 
     let forecastMaxTemp = document.getElementsByClassName("max-temp");
-    forecastMaxTemp.innerHTML = Math.floor(currentForecastMaxTemp * 1.8 + 32);
+    console.log(forecastMaxTemp.value);
+    forecastMaxTemp.innerHTML = Math.floor(forecastMaxTemp.value * 1.8 + 32);
     let forecastMaxTempSymbol = document.getElementsByClassName(
       "forecast-temperature"
     );
