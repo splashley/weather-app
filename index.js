@@ -25,6 +25,7 @@ const weatherIcons = {
 let button = document.querySelector("#search-form");
 let switchMetricButton = document.querySelector("#metric-switch");
 let currentTemperatureInCelsius = "";
+const currentForecastMaxTemp = [];
 let currentButton = document.querySelector("#current-button");
 
 // Show current day/time
@@ -100,12 +101,12 @@ function getForecast(cityName) {
 }
 
 function displayForecast(response) {
-  console.log(response);
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
   for (let i = 0; i < 5; i++) {
     forecast = response.data.list[i];
+    currentForecastMaxTemp.push(forecast.main.temp_max);
     forecastElement.innerHTML += `<div class="col-sm">
                   <strong> <span class="max-temp">${Math.floor(
                     forecast.main.temp_max
@@ -129,7 +130,6 @@ function getWeatherData(event) {
   axios(apiUrl).then(showWeather);
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${newCityName.value}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayForecast);
-  console.log("this is the getweatherdata function");
 }
 
 // +(
@@ -140,29 +140,44 @@ function getWeatherData(event) {
 //   </strong>
 // );
 
+// function querySelectorTest() {
+//   let forecastMaxTemp = document.querySelectorAll(".max-temp");
+//   Array.from(forecastMaxTemp).map((item) => console.log(item));
+//   // you can now do innerhtml/textcontent and modify results
+//   console.log(forecastMaxTemp);
+// }
+
 // Convert temperatures from Celcius to Fahrenheit and vice versa
 function temperatureConverter() {
-  if (switchMetricButton.innerHTML === "F") {
-    let currentTemp = document.querySelector("#current-temp");
-    currentTemp.innerHTML =
-      Math.floor(currentTemperatureInCelsius * 1.8 + 32) + "º" + "F";
-    switchMetricButton.innerHTML = "C";
+  for (let i = 0; i < 5; i++) {
+    if (switchMetricButton.textContent === "F") {
+      //Current Temperature
+      let currentTemp = document.querySelector("#current-temp");
+      currentTemp.textContent =
+        Math.floor(currentTemperatureInCelsius * 1.8 + 32) + "º" + "F";
+      switchMetricButton.textContent = "C";
 
-    let forecastMaxTemp = document.getElementsByClassName("max-temp");
-    console.log(forecastMaxTemp.value);
-    forecastMaxTemp.innerHTML = Math.floor(forecastMaxTemp.value * 1.8 + 32);
-    let forecastMaxTempSymbol = document.getElementsByClassName(
-      "forecast-temperature"
-    );
-    forecastMaxTempSymbol.innerHTML = "º" + "F";
-    // currentForecastMinTemp
-  } else {
-    let currentTemp = document.querySelector("#current-temp");
-    currentTemp.innerHTML = Math.floor(currentTemperatureInCelsius) + "º" + "C";
-    switchMetricButton.innerHTML = "F";
+      // Forecase Temperatures
+      let forecastMaxTemp = document.querySelectorAll(".max-temp");
+        Array.from(forecastMaxTemp).map((item) => forecastMaxTemp.textContent = Math.floor(
+        currentForecastMaxTemp[i] * 1.8 + 32
+      ););
+
+      let forecastMaxTempSymbol = document.getElementsByClassName(
+        "forecast-temperature"
+      );
+      forecastMaxTempSymbol.textContent = "º" + "F";
+      // currentForecastMinTemp
+    } else {
+      let currentTemp = document.querySelector("#current-temp");
+      currentTemp.textContent =
+        Math.floor(currentTemperatureInCelsius) + "º" + "C";
+      switchMetricButton.textContent = "F";
+    }
   }
 }
 
+// window.addEventListener("DOMContentLoaded", querySelectorTest);
 showCurrentTime();
 navigator.geolocation.getCurrentPosition(showPosition);
 currentButton.addEventListener("click", getCurrentPosition);
