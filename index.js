@@ -110,10 +110,10 @@ function displayForecast(response) {
     forecastElement.innerHTML += `<div class="col-sm">
                   <strong> <span class="max-temp">${Math.floor(
                     forecast.main.temp_max
-                  )}</span><span class="forecast-temperature">ºC</span> |</strong>
+                  )}</span><span class="measurement-symbol">ºC</span> |</strong>
                   <span class="min-temp">${Math.floor(
                     forecast.main.temp_min
-                  )}</span><span class="forecast-temperature">ºC</span>
+                  )}</span><span class="measurement-symbol">ºC</span>
             </div>`;
   }
 }
@@ -132,21 +132,6 @@ function getWeatherData(event) {
   axios.get(apiUrl).then(displayForecast);
 }
 
-// +(
-//   <strong>
-//     {" "}
-//     <span class="max-temp">${Math.floor(forecast.main.temp_max)}</span>º
-//     <span class="forecast-temperature">C</span> |
-//   </strong>
-// );
-
-// function querySelectorTest() {
-//   let forecastMaxTemp = document.querySelectorAll(".max-temp");
-//   Array.from(forecastMaxTemp).map((item) => console.log(item));
-//   // you can now do innerhtml/textcontent and modify results
-//   console.log(forecastMaxTemp);
-// }
-
 // Convert temperatures from Celcius to Fahrenheit and vice versa
 function temperatureConverter() {
   for (let i = 0; i < 5; i++) {
@@ -158,15 +143,16 @@ function temperatureConverter() {
       switchMetricButton.textContent = "C";
 
       // Forecase Temperatures
-      let forecastMaxTemp = document.querySelectorAll(".max-temp");
-        Array.from(forecastMaxTemp).map((item) => forecastMaxTemp.textContent = Math.floor(
-        currentForecastMaxTemp[i] * 1.8 + 32
-      ););
+      // let forecastMaxTemp = document.querySelectorAll(".max-temp");
+      // Array.from(forecastMaxTemp).map(
+      //   (el) =>
+      //     (el.textContent = Math.floor(currentForecastMaxTemp[i] * 1.8 + 32))
+      // );
+      // let forecastMaxTempSymbol = document.querySelectorAll(
+      //   ".measurement-symbol"
+      // );
 
-      let forecastMaxTempSymbol = document.getElementsByClassName(
-        "forecast-temperature"
-      );
-      forecastMaxTempSymbol.textContent = "º" + "F";
+      // forecastMaxTempSymbol.textContent = "º" + "F";
       // currentForecastMinTemp
     } else {
       let currentTemp = document.querySelector("#current-temp");
