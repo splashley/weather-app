@@ -4,7 +4,7 @@ import SearchFunction from "./components/SearchFunction";
 function App() {
   return (
     <div className="App">
-      <div class="container card text-white bg-dark mt-5">
+      <div className="content">
         <SearchFunction />
       </div>
     </div>
